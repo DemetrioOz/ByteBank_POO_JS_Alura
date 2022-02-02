@@ -1,7 +1,10 @@
 {
-  "name": "POO_Alura",
+  "name": "poo_alura",
   "version": "1.0.0",
   "main": "index.js",
   "author": "MatheusD <55540506+MatheusDama@users.noreply.github.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "node ."
+  }
 }
