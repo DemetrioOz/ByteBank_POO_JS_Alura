@@ -1,51 +1,15 @@
-const Cliente = require("./Cliente");
-class ContaCorrente {
-  agencia;
-  // atributo onde a classe é usado como um todo, ou seja não fica variavel se instaciar
+import { Conta } from "./Conta.js";
+
+export class ContaCorrente extends Conta {
   static numeroDeContas = 0;
-
-  // atribruto privado
-  #cliente;
-  #saldo;
-
-  set cliente(cliente) {
-    if (cliente instanceof Cliente) this.#cliente = cliente;
+  constructor(cliente, agencia) {
+    super(0, cliente, agencia);
+    ContaCorrente.numeroDeContas += 1;
   }
 
-  get cliente() {
-    return this.#cliente;
-  }
-
-  get saldo() {
-    return this.#saldo;
-  }
-
-  constructor(agencia, cliente, saldo = 0) {
-    this.agencia = agencia;
-    this.#cliente = cliente;
-    this.#saldo = saldo;
-    // seta como atributo "global" da classe
-    ContaCorrente.numeroDeContas++;
-  }
-
+  //sobreescrevendo o comportamento de sacar
   sacar(valor) {
-    if (this.#saldo >= valor) {
-      this.#saldo -= valor;
-      return valor;
-    }
-    return;
-  }
-
-  depositar(valor) {
-    if (valor <= 0) return;
-    this.#saldo += valor;
-  }
-
-  transferir(valor, conta) {
-    // variavel conta reflete a uma referencia ao objeto conta passado
-    const valorSacado = this.sacar(valor);
-    conta.depositar(valorSacado);
+    let taxa = 1.1;
+    return this._sacar(valor, taxa);
   }
 }
-
-module.exports = ContaCorrente;
